@@ -20,7 +20,7 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const [menuActive, setMenuActive] = useState(true);
+  const [menuActive, setMenuActive] = useState(false);
 
   const handleMenuActive = () => {
     setMenuActive(prev => !prev);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Button, Zoom } from "@material-ui/core";
+import { Grid, Button, Zoom, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import menu from "../../utils/menu";
@@ -21,7 +21,6 @@ export default function Header({ active, handle }) {
       id="grid-header"
       alignItems="center"
       justify="center"
-      spacing={10}
       className={classes.root}
       style={{
         height: active && 500
@@ -45,7 +44,7 @@ export default function Header({ active, handle }) {
                 component={Link}
                 to={path}
               >
-                {name}
+                <Typography variant="h5">{name}</Typography>
               </Button>
             </Grid>
           </Zoom>
