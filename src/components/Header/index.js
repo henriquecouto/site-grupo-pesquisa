@@ -41,6 +41,7 @@ export default function Header({ active, handle }) {
               <Button
                 color="primary"
                 className={classes.button}
+                onClick={handle}
                 component={Link}
                 to={path}
               >

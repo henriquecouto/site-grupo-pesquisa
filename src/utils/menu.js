@@ -1,8 +1,8 @@
 export default [
-  { path: "/", name: "Home" },
-  { path: "/1", name: "jdshs" },
-  { path: "/2", name: "dsdsdsds" },
-  { path: "/3", name: "opiewopie" },
-  { path: "/4", name: "uiqwyuiwy" },
-  { path: "/5", name: "cmnmcx" }
+  { path: "/", name: "Início" },
+  { path: "/noticias", name: "Notícias" },
+  { path: "/integrantes", name: "Integrantes" },
+  { path: "/projetos", name: "Projetos" },
+  { path: "/linhas-pesquisa", name: "Linhas de Pesquisa" },
+  { path: "/contato", name: "Contato" }
 ];

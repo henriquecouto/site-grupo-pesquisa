@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import {
-  createMuiTheme,
-  ThemeProvider,
-  makeStyles
-} from "@material-ui/core/styles";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import BtnMenu from "./components/BtnMenu";
 import Header from "./components/Header";
 import Home from "./screens/Home";
+import News from "./screens/News";
+import Members from "./screens/Members";
+import ResearchLines from "./screens/ResearchLines";
+import Contact from "./screens/Contact";
+import Projects from "./screens/Projects";
 
 const theme = createMuiTheme({
   palette: {
@@ -41,32 +42,32 @@ function App() {
 
           <Route
             exact
-            path="/1"
-            render={() => <Home handleMenuActive={handleMenuActive} />}
+            path="/noticias"
+            render={() => <News handleMenuActive={handleMenuActive} />}
           />
 
           <Route
             exact
-            path="/2"
-            render={() => <Home handleMenuActive={handleMenuActive} />}
+            path="/integrantes"
+            render={() => <Members handleMenuActive={handleMenuActive} />}
           />
 
           <Route
             exact
-            path="/3"
-            render={() => <Home handleMenuActive={handleMenuActive} />}
+            path="/projetos"
+            render={() => <Projects handleMenuActive={handleMenuActive} />}
           />
 
           <Route
             exact
-            path="/4"
-            render={() => <Home handleMenuActive={handleMenuActive} />}
+            path="/linhas-pesquisa"
+            render={() => <ResearchLines handleMenuActive={handleMenuActive} />}
           />
 
           <Route
             exact
-            path="/5"
-            render={() => <Home handleMenuActive={handleMenuActive} />}
+            path="/contato"
+            render={() => <Contact handleMenuActive={handleMenuActive} />}
           />
         </div>
       </Router>
