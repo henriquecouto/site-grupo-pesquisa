@@ -1,14 +1,15 @@
 import React from "react";
-import { Grid, Button, Zoom, Typography } from "@material-ui/core";
+import { Grid, Button, Zoom, Typography, Slide } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import menu from "../../utils/menu";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(10),
+    padding: theme.spacing(7),
     height: 0,
-    transition: "height 0.5s"
+    maxWidth: 1366,
+    zIndex: 5
   }
 }));
 
@@ -16,39 +17,47 @@ export default function Header({ active, handle }) {
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      id="grid-header"
-      alignItems="center"
-      justify="center"
-      className={classes.root}
-      style={{
-        height: active && 500
-      }}
-    >
-      {active &&
-        menu.map(({ name, path }, i) => (
-          <Zoom key={path} in={active} {...(active ? { timeout: 700 } : {})}>
-            <Grid
-              item
-              xs={4}
-              style={{
-                display: "flex",
-                justifyContent: "center"
-              }}
-            >
-              <Button
-                color="primary"
-                className={classes.button}
-                onClick={handle}
-                component={Link}
-                to={path}
+    active && (
+      <Grid container justify="center">
+        <Grid
+          container
+          id="grid-header"
+          alignItems="center"
+          justify="center"
+          className={classes.root}
+          style={{
+            height: active && 400
+          }}
+        >
+          {active &&
+            menu.map(({ name, path }, i) => (
+              <Slide
+                key={path}
+                in={active}
+                {...(active ? { timeout: 1500 } : {})}
               >
-                <Typography variant="h5">{name}</Typography>
-              </Button>
-            </Grid>
-          </Zoom>
-        ))}
-    </Grid>
+                <Grid
+                  item
+                  xs={4}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center"
+                  }}
+                >
+                  <Button
+                    color="primary"
+                    className={classes.button}
+                    onClick={handle}
+                    component={Link}
+                    to={path}
+                  >
+                    <Typography>{name}</Typography>
+                  </Button>
+                </Grid>
+              </Slide>
+            ))}
+        </Grid>
+      </Grid>
+    )
   );
 }

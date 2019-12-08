@@ -11,10 +11,12 @@ import Members from "./screens/Members";
 import ResearchLines from "./screens/ResearchLines";
 import Contact from "./screens/Contact";
 import Projects from "./screens/Projects";
+import { Grid } from "@material-ui/core";
+import Content from "./components/Content";
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: "#fff" },
+    primary: { main: "#e0e0e0" },
     background: { main: "#212121", secondary: "#263238" }
   }
 });
@@ -30,10 +32,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <BtnMenu active={menuActive} handle={handleMenuActive} />
-
         <Header active={menuActive} handle={handleMenuActive} />
 
-        <div style={{ width: "100%", color: "#fff" }}>
+        <Content active={menuActive}>
           <Route
             exact
             path="/"
@@ -69,7 +70,7 @@ function App() {
             path="/contato"
             render={() => <Contact handleMenuActive={handleMenuActive} />}
           />
-        </div>
+        </Content>
       </Router>
     </ThemeProvider>
   );
