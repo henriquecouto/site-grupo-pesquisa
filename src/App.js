@@ -16,8 +16,9 @@ import Content from "./components/Content";
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: "#e0e0e0" },
-    background: { main: "#212121", secondary: "#263238" }
+    primary: { main: "#212121" },
+    secondary: { main: "#263238" },
+    text: { primary: "#e0e0e0" }
   }
 });
 
@@ -33,7 +34,6 @@ function App() {
       <Router>
         <BtnMenu active={menuActive} handle={handleMenuActive} />
         <Header active={menuActive} handle={handleMenuActive} />
-
         <Content active={menuActive}>
           <Route
             exact

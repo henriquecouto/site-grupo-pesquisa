@@ -20,7 +20,7 @@ export default function BtnMenu({ active, handle }) {
 
   return (
     <div className={classes.button}>
-      <Button onClick={handle} color="primary">
+      <Button onClick={handle} color="textPrimary">
         <div style={{ marginRight: 10 }}>
           <HamburgerButton
             open={active}
@@ -34,8 +34,8 @@ export default function BtnMenu({ active, handle }) {
         {active ? (
           <Typography style={classes.text}>Fechar</Typography>
         ) : (
-          <Typography style={classes.text}>Menu</Typography>
-        )}
+            <Typography style={classes.text}>Menu</Typography>
+          )}
       </Button>
     </div>
   );
