@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Grid, TextField, Button } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 
@@ -136,7 +136,7 @@ export default function Contact() {
         </Grid>
       </Grid>
       <Grid item xs={4} className={classes.right}>
-        <img src={logo} className={classes.logo} />
+        <img src={logo} className={classes.logo} alt="" />
       </Grid>
     </Grid>
   );

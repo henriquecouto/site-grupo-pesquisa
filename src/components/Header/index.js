@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Button, Zoom, Typography, Slide } from "@material-ui/core";
+import { Grid, Button, Typography, Slide, Hidden } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import menu from "../../utils/menu";
@@ -29,8 +29,38 @@ export default function Header({ active, handle }) {
             height: active && 400
           }}
         >
-          {active &&
-            menu.map(({ name, path }, i) => (
+          <Hidden mdUp>
+            {menu.map(({ name, path }, i) => (
+              <Slide
+                key={path}
+                in={active}
+                {...(active ? { timeout: 1500 } : {})}
+                style={i === 0 && { marginTop: 30 }}
+              >
+                <Grid
+                  item
+                  xs={12}
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "flex-end"
+                  }}
+                >
+                  <Button
+                    color="textPrimary"
+                    className={classes.button}
+                    onClick={handle}
+                    component={Link}
+                    to={path}
+                  >
+                    <Typography>{name}</Typography>
+                  </Button>
+                </Grid>
+              </Slide>
+            ))}
+          </Hidden>
+          <Hidden only={["sm", "xs"]}>
+            {menu.map(({ name, path }, i) => (
               <Slide
                 key={path}
                 in={active}
@@ -56,6 +86,7 @@ export default function Header({ active, handle }) {
                 </Grid>
               </Slide>
             ))}
+          </Hidden>
         </Grid>
       </Grid>
     )

@@ -11,7 +11,6 @@ import Members from "./screens/Members";
 import ResearchLines from "./screens/ResearchLines";
 import Contact from "./screens/Contact";
 import Projects from "./screens/Projects";
-import { Grid } from "@material-ui/core";
 import Content from "./components/Content";
 
 const theme = createMuiTheme({

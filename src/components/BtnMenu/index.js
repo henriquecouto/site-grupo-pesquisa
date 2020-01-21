@@ -1,7 +1,6 @@
 import React from "react";
-import { IconButton, Typography, Button } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Menu as MenuIcon, Close as CloseIcon } from "@material-ui/icons";
 import { HamburgerButton } from "react-hamburger-button";
 
 const useStyles = makeStyles(theme => ({
@@ -34,8 +33,8 @@ export default function BtnMenu({ active, handle }) {
         {active ? (
           <Typography style={classes.text}>Fechar</Typography>
         ) : (
-            <Typography style={classes.text}>Menu</Typography>
-          )}
+          <Typography style={classes.text}>Menu</Typography>
+        )}
       </Button>
     </div>
   );
