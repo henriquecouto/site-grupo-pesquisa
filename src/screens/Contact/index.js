@@ -32,7 +32,13 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.primary.main,
     fontFamily: "roboto",
-    transition: "0.3s"
+    transition: "0.3s",
+    borderBottomColor: theme.palette.primary.main,
+    borderBottomWidth: 5,
+    borderBottomStyle: "solid",
+    "&:hover": {
+      borderBottomColor: theme.palette.primary.light
+    }
   },
   button: {
     width: "auto",
@@ -40,27 +46,23 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 5
   },
   mouseOver: {
-    backgroundColor: theme.palette.primary.dark
+    borderBottomColor: theme.palette.primary.dark
   },
   textarea: {
     resize: "none",
     height: 200
   },
   error: {
-    backgroundColor: theme.palette.error.main
+    borderBottomColor: theme.palette.error.main
+    // backgroundColor: theme.palette.error.main,
+    // "&::placeholder": {
+    //   color: "#e0e0e0"
+    // }
   }
 }));
 
 export default function Contact() {
   const classes = useStyles();
-
-  const [onHover, setOnHover] = useState({
-    button: false,
-    name: false,
-    email: false,
-    subject: false,
-    message: false
-  });
 
   const [fields, setFields] = useState({
     name: { value: "", error: false },
@@ -68,10 +70,6 @@ export default function Contact() {
     subject: { value: "", error: false },
     message: { value: "", error: false }
   });
-
-  const handleOnHover = (input, value) => () => {
-    setOnHover({ ...onHover, [input]: value });
-  };
 
   const validateField = (name, content) => {
     const others = () => {
@@ -115,12 +113,9 @@ export default function Contact() {
             <input
               className={classNames([
                 classes.input,
-                onHover.name && classes.mouseOver,
                 fields.name.error && classes.error
               ])}
               placeholder="SEU NOME"
-              onMouseEnter={handleOnHover("name", true)}
-              onMouseOut={handleOnHover("name", false)}
               value={fields.name.value}
               onChange={onChange("name")}
             />
@@ -129,12 +124,9 @@ export default function Contact() {
             <input
               className={classNames([
                 classes.input,
-                onHover.email && classes.mouseOver,
                 fields.email.error && classes.error
               ])}
               placeholder="SEU E-MAIL"
-              onMouseEnter={handleOnHover("email", true)}
-              onMouseOut={handleOnHover("email", false)}
               value={fields.email.value}
               onChange={onChange("email")}
             />
@@ -143,12 +135,9 @@ export default function Contact() {
             <input
               className={classNames([
                 classes.input,
-                onHover.subject && classes.mouseOver,
                 fields.subject.error && classes.error
               ])}
               placeholder="ASSUNTO DA MENSAGEM"
-              onMouseEnter={handleOnHover("subject", true)}
-              onMouseOut={handleOnHover("subject", false)}
               value={fields.subject.value}
               onChange={onChange("subject")}
             />
@@ -158,26 +147,15 @@ export default function Contact() {
               className={classNames([
                 classes.input,
                 classes.textarea,
-                onHover.message && classes.mouseOver,
                 fields.message.error && classes.error
               ])}
               placeholder="SUA MENSAGEM"
-              onMouseEnter={handleOnHover("message", true)}
-              onMouseOut={handleOnHover("message", false)}
               value={fields.message.value}
               onChange={onChange("message")}
             />
           </Grid>
           <Grid item>
-            <button
-              className={classNames([
-                classes.input,
-                classes.button,
-                onHover.button && classes.mouseOver
-              ])}
-              onMouseEnter={handleOnHover("button", true)}
-              onMouseLeave={handleOnHover("button", false)}
-            >
+            <button className={classNames([classes.input, classes.button])}>
               ENVIAR MENSAGEM
             </button>
           </Grid>
