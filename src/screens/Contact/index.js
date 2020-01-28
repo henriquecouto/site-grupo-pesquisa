@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     fontSize: 20,
     border: "none",
-    borderRadius: "5px 5px 0 0 ",
+    borderRadius: 5,
     borderStyle: "block",
     outline: "none",
     color: theme.palette.text.primary,
@@ -45,6 +45,9 @@ const useStyles = makeStyles(theme => ({
   textarea: {
     resize: "none",
     height: 200
+  },
+  error: {
+    backgroundColor: theme.palette.error.main
   }
 }));
 
@@ -59,9 +62,42 @@ export default function Contact() {
     message: false
   });
 
+  const [fields, setFields] = useState({
+    name: { value: "", error: false },
+    email: { value: "", error: false },
+    subject: { value: "", error: false },
+    message: { value: "", error: false }
+  });
+
   const handleOnHover = (input, value) => () => {
     setOnHover({ ...onHover, [input]: value });
   };
+
+  const validateField = (name, content) => {
+    const others = () => {
+      return !!(content.length > 2);
+    };
+
+    const email = () => {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(content);
+    };
+
+    const tests = {
+      email,
+      name: others,
+      subject: () => true,
+      message: others
+    };
+
+    return tests[name]();
+  };
+
+  const onChange = field => ({ target: { value } }) => {
+    const result = validateField(field, value);
+    setFields({ ...fields, [field]: { value, error: !result } });
+  };
+  console.log(fields.email.error);
 
   return (
     <Grid container className={classes.root} justify="space-between">
@@ -79,33 +115,42 @@ export default function Contact() {
             <input
               className={classNames([
                 classes.input,
-                onHover.name && classes.mouseOver
+                onHover.name && classes.mouseOver,
+                fields.name.error && classes.error
               ])}
               placeholder="SEU NOME"
               onMouseEnter={handleOnHover("name", true)}
               onMouseOut={handleOnHover("name", false)}
+              value={fields.name.value}
+              onChange={onChange("name")}
             />
           </Grid>
           <Grid item>
             <input
               className={classNames([
                 classes.input,
-                onHover.email && classes.mouseOver
+                onHover.email && classes.mouseOver,
+                fields.email.error && classes.error
               ])}
               placeholder="SEU E-MAIL"
               onMouseEnter={handleOnHover("email", true)}
               onMouseOut={handleOnHover("email", false)}
+              value={fields.email.value}
+              onChange={onChange("email")}
             />
           </Grid>
           <Grid item>
             <input
               className={classNames([
                 classes.input,
-                onHover.subject && classes.mouseOver
+                onHover.subject && classes.mouseOver,
+                fields.subject.error && classes.error
               ])}
               placeholder="ASSUNTO DA MENSAGEM"
               onMouseEnter={handleOnHover("subject", true)}
               onMouseOut={handleOnHover("subject", false)}
+              value={fields.subject.value}
+              onChange={onChange("subject")}
             />
           </Grid>
           <Grid item>
@@ -113,11 +158,14 @@ export default function Contact() {
               className={classNames([
                 classes.input,
                 classes.textarea,
-                onHover.message && classes.mouseOver
+                onHover.message && classes.mouseOver,
+                fields.message.error && classes.error
               ])}
               placeholder="SUA MENSAGEM"
               onMouseEnter={handleOnHover("message", true)}
               onMouseOut={handleOnHover("message", false)}
+              value={fields.message.value}
+              onChange={onChange("message")}
             />
           </Grid>
           <Grid item>
