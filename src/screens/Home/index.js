@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import logo from "../../assets/logo.png";
+import { loadScreen } from "../../services/firebase/db";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,19 +22,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Home({ handleMenuActive }) {
+export default function Home({ handleMenuActive, screen }) {
   const classes = useStyles();
+
   return (
     <Grid container className={classes.root}>
       <Grid item xs={8}>
         <Typography variant="h2" color="textPrimary" className={classes.title}>
-          Home
+          {screen.name}
         </Typography>
         <Typography variant="h6" color="textPrimary">
-          Mussum Ipsum, cacilds vidis litro abertis. Mé faiz elementum girarzis,
-          nisi eros vermeio. Paisis, filhis, espiritis santis. Si num tem leite
-          então bota uma pinga aí cumpadi! Não sou faixa preta cumpadi, sou
-          preto inteiris, inteiris.
+          {screen.content}
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.right}>

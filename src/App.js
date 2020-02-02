@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -13,6 +13,8 @@ import Contact from "./screens/Contact";
 import Projects from "./screens/Projects";
 import Content from "./components/Content";
 
+import { loadScreens } from "./services/firebase/db";
+
 const theme = createMuiTheme({
   palette: {
     primary: { main: "#212121" },
@@ -24,6 +26,12 @@ const theme = createMuiTheme({
 
 function App() {
   const [menuActive, setMenuActive] = useState(false);
+  const [screens, setScreens] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = loadScreens(setScreens);
+    return () => unsubscribe();
+  }, []);
 
   const handleMenuActive = () => {
     setMenuActive(prev => !prev);
@@ -34,43 +42,69 @@ function App() {
       <Router>
         <BtnMenu active={menuActive} handle={handleMenuActive} />
         <Header active={menuActive} handle={handleMenuActive} />
-        <Content active={menuActive}>
-          <Route
-            exact
-            path="/"
-            render={() => <Home handleMenuActive={handleMenuActive} />}
-          />
+        {!!screens.length && (
+          <Content active={menuActive}>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Home handleMenuActive={handleMenuActive} screen={screens[0]} />
+              )}
+            />
 
-          <Route
-            exact
-            path="/noticias"
-            render={() => <News handleMenuActive={handleMenuActive} />}
-          />
+            <Route
+              exact
+              path="/noticias"
+              render={() => (
+                <News handleMenuActive={handleMenuActive} screen={screens[1]} />
+              )}
+            />
 
-          <Route
-            exact
-            path="/integrantes"
-            render={() => <Members handleMenuActive={handleMenuActive} />}
-          />
+            <Route
+              exact
+              path="/integrantes"
+              render={() => (
+                <Members
+                  handleMenuActive={handleMenuActive}
+                  screen={screens[2]}
+                />
+              )}
+            />
 
-          <Route
-            exact
-            path="/projetos"
-            render={() => <Projects handleMenuActive={handleMenuActive} />}
-          />
+            <Route
+              exact
+              path="/projetos"
+              render={() => (
+                <Projects
+                  handleMenuActive={handleMenuActive}
+                  screen={screens[3]}
+                />
+              )}
+            />
 
-          <Route
-            exact
-            path="/linhas-pesquisa"
-            render={() => <ResearchLines handleMenuActive={handleMenuActive} />}
-          />
+            <Route
+              exact
+              path="/linhas-pesquisa"
+              render={() => (
+                <ResearchLines
+                  handleMenuActive={handleMenuActive}
+                  screen={screens[4]}
+                />
+              )}
+            />
 
-          <Route
-            exact
-            path="/contato"
-            render={() => <Contact handleMenuActive={handleMenuActive} />}
-          />
-        </Content>
+            <Route
+              exact
+              path="/contato"
+              render={() => (
+                <Contact
+                  handleMenuActive={handleMenuActive}
+                  screen={screens[5]}
+                />
+              )}
+            />
+          </Content>
+        )}
       </Router>
     </ThemeProvider>
   );

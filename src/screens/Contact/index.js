@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
+import { loadScreen } from "../../services/firebase/db";
 
 import logo from "../../assets/logo.png";
 
@@ -54,14 +55,10 @@ const useStyles = makeStyles(theme => ({
   },
   error: {
     borderBottomColor: theme.palette.error.main
-    // backgroundColor: theme.palette.error.main,
-    // "&::placeholder": {
-    //   color: "#e0e0e0"
-    // }
   }
 }));
 
-export default function Contact() {
+export default function Contact({ screen }) {
   const classes = useStyles();
 
   const [fields, setFields] = useState({
@@ -95,17 +92,15 @@ export default function Contact() {
     const result = validateField(field, value);
     setFields({ ...fields, [field]: { value, error: !result } });
   };
-  console.log(fields.email.error);
 
   return (
     <Grid container className={classes.root} justify="space-between">
       <Grid item xs={8}>
         <Typography variant="h2" color="textPrimary" className={classes.text}>
-          Contato
+          {screen.name}
         </Typography>
         <Typography variant="h6" color="textPrimary" className={classes.text}>
-          Mussum Ipsum, cacilds vidis litro abertis. Mé faiz elementum girarzis,
-          nisi eros vermeio.
+          {screen.content}
         </Typography>
 
         <Grid container direction="column" spacing={1}>

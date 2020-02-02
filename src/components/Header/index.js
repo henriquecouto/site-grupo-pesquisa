@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
     height: 0,
     maxWidth: 1366,
     zIndex: 5
+  },
+  button: {
+    color: theme.palette.text.primary
   }
 }));
 
@@ -35,7 +38,7 @@ export default function Header({ active, handle }) {
                 key={path}
                 in={active}
                 {...(active ? { timeout: 1500 } : {})}
-                style={i === 0 && { marginTop: 30 }}
+                style={i === 0 ? { marginTop: 30 } : {}}
               >
                 <Grid
                   item
@@ -75,7 +78,6 @@ export default function Header({ active, handle }) {
                   }}
                 >
                   <Button
-                    color="textPrimary"
                     className={classes.button}
                     onClick={handle}
                     component={Link}

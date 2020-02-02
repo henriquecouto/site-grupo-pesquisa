@@ -12,6 +12,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     zIndex: 100
+  },
+  btnText: {
+    color: theme.palette.common.white
   }
 }));
 export default function BtnMenu({ active, handle }) {
@@ -19,7 +22,7 @@ export default function BtnMenu({ active, handle }) {
 
   return (
     <div className={classes.button}>
-      <Button onClick={handle} color="textPrimary">
+      <Button onClick={handle} className={classes.btnText}>
         <div style={{ marginRight: 10 }}>
           <HamburgerButton
             open={active}
