@@ -94,7 +94,13 @@ export default function Contact({ screen }) {
   };
 
   return (
-    <Grid container className={classes.root} justify="space-between">
+    <Grid
+      container
+      className={classes.root}
+      justify="space-between"
+      alignItems="flex-start"
+      spacing={10}
+    >
       <Grid item xs={8}>
         <Typography variant="h2" color="textPrimary" className={classes.text}>
           {screen.name}
@@ -156,8 +162,8 @@ export default function Contact({ screen }) {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={4} className={classes.right}>
-        <img src={logo} className={classes.logo} alt="" />
+      <Grid item xs={3} className={classes.right}>
+        <img src={screen.image} className={classes.logo} alt="" />
       </Grid>
     </Grid>
   );

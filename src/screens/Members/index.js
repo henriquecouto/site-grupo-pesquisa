@@ -62,7 +62,12 @@ export default function Members({ screen }) {
   }, []);
 
   return (
-    <Grid container className={classes.root}>
+    <Grid
+      container
+      className={classes.root}
+      spacing={10}
+      alignItems="flex-start"
+    >
       <Grid item xs={8}>
         <Grid container direction="column" spacing={9}>
           <Grid item>
@@ -104,8 +109,8 @@ export default function Members({ screen }) {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={4} className={classes.right}>
-        <img src={logo} className={classes.logo} alt="" />
+      <Grid item xs={3} className={classes.right}>
+        <img src={screen.image} className={classes.logo} alt="" />
       </Grid>
     </Grid>
   );

@@ -26,7 +26,12 @@ export default function Home({ handleMenuActive, screen }) {
   const classes = useStyles();
 
   return (
-    <Grid container className={classes.root}>
+    <Grid
+      container
+      className={classes.root}
+      spacing={10}
+      alignItems="flex-start"
+    >
       <Grid item xs={8}>
         <Typography variant="h2" color="textPrimary" className={classes.title}>
           {screen.name}
@@ -35,8 +40,8 @@ export default function Home({ handleMenuActive, screen }) {
           {screen.content}
         </Typography>
       </Grid>
-      <Grid item xs={4} className={classes.right}>
-        <img src={logo} className={classes.logo} alt="" />
+      <Grid item xs={3} className={classes.right}>
+        <img src={screen.image} className={classes.logo} alt="" />
       </Grid>
     </Grid>
   );
