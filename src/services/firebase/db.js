@@ -12,9 +12,13 @@ export const loadScreens = callback => {
 };
 
 export const loadMembers = callback => {
-  const unsubscribe = db.collection("members").onSnapshot(snapshot => {
-    const result = snapshot.docs.map(v => ({ id: v.id, ...v.data() }));
-    callback(result);
-  });
+  const unsubscribe = db
+    .collection("members")
+    .orderBy("first", "desc")
+    .orderBy("name", "desc")
+    .onSnapshot(snapshot => {
+      const result = snapshot.docs.map(v => ({ id: v.id, ...v.data() }));
+      callback(result);
+    });
   return unsubscribe;
 };
