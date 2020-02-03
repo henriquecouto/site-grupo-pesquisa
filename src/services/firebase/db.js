@@ -26,6 +26,15 @@ export const loadNews = (callback, { limit }) => {
   const unsubscribe = db
     .collection("news")
     .orderBy("date", "asc")
+    .limit(limit)
+    .onSnapshot(snapshot => onSnapshot(snapshot, callback));
+  return unsubscribe;
+};
+
+export const loadProjects = callback => {
+  const unsubscribe = db
+    .collection("projects")
+    .orderBy("date", "asc")
     .onSnapshot(snapshot => onSnapshot(snapshot, callback));
   return unsubscribe;
 };

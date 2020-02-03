@@ -20,7 +20,8 @@ const theme = createMuiTheme({
     primary: { main: "#212121" },
     secondary: { main: "#263238" },
     text: { primary: "#e0e0e0" },
-    error: { main: "#b71c1c" }
+    error: { main: "#b71c1c" },
+    background: { paper: "#212121" }
   }
 });
 

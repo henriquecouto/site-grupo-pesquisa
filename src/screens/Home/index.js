@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-import logo from "../../assets/logo.png";
-import { loadScreen } from "../../services/firebase/db";
 
 const useStyles = makeStyles(theme => ({
   root: {
