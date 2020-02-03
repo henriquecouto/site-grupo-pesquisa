@@ -5,6 +5,19 @@ const onSnapshot = (snapshot, callback) => {
   return callback(result);
 };
 
+export const addData = async (collection, data) => {
+  // return;
+  try {
+    await db.collection(collection).add({
+      ...data,
+      registrationDate: new Date()
+    });
+    return { status: true };
+  } catch (error) {
+    return { etatus: false, error };
+  }
+};
+
 export const loadScreens = callback => {
   const unsubscribe = db
     .collection("screens")

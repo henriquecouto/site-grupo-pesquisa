@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
+import { addData } from "../../services/firebase/db";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,6 +66,8 @@ export default function Contact({ screen }) {
     message: { value: "", error: false }
   });
 
+  const [send, setSend] = useState("");
+
   const validateField = (name, content) => {
     const others = () => {
       return !!(content.length > 2);
@@ -90,6 +93,23 @@ export default function Contact({ screen }) {
     setFields({ ...fields, [field]: { value, error: !result } });
   };
 
+  const sendMessage = async e => {
+    e.preventDefault();
+    const result = await addData("messages", fields);
+    if (result.status) {
+      setSend("Mensagem enviada com sucesso!");
+      setFields({
+        name: { value: "", error: false },
+        email: { value: "", error: false },
+        subject: { value: "", error: false },
+        message: { value: "", error: false }
+      });
+    } else {
+      setSend("Ocorreu um erro, por favor tente novamente!");
+      console.log(result.error);
+    }
+  };
+
   return (
     <Grid
       container
@@ -106,58 +126,74 @@ export default function Contact({ screen }) {
           {screen.content}
         </Typography>
 
-        <Grid container direction="column" spacing={1}>
-          <Grid item>
-            <input
-              className={classNames([
-                classes.input,
-                fields.name.error && classes.error
-              ])}
-              placeholder="SEU NOME"
-              value={fields.name.value}
-              onChange={onChange("name")}
-            />
-          </Grid>
-          <Grid item>
-            <input
-              className={classNames([
-                classes.input,
-                fields.email.error && classes.error
-              ])}
-              placeholder="SEU E-MAIL"
-              value={fields.email.value}
-              onChange={onChange("email")}
-            />
-          </Grid>
-          <Grid item>
-            <input
-              className={classNames([
-                classes.input,
-                fields.subject.error && classes.error
-              ])}
-              placeholder="ASSUNTO DA MENSAGEM"
-              value={fields.subject.value}
-              onChange={onChange("subject")}
-            />
-          </Grid>
-          <Grid item>
-            <textarea
-              className={classNames([
-                classes.input,
-                classes.textarea,
-                fields.message.error && classes.error
-              ])}
-              placeholder="SUA MENSAGEM"
-              value={fields.message.value}
-              onChange={onChange("message")}
-            />
-          </Grid>
-          <Grid item>
-            <button className={classNames([classes.input, classes.button])}>
-              ENVIAR MENSAGEM
-            </button>
-          </Grid>
-        </Grid>
+        {!send ? (
+          <form onSubmit={sendMessage}>
+            <Grid container direction="column" spacing={1}>
+              <Grid item>
+                <input
+                  required
+                  type="name"
+                  className={classNames([
+                    classes.input,
+                    fields.name.error && classes.error
+                  ])}
+                  placeholder="SEU NOME"
+                  value={fields.name.value}
+                  onChange={onChange("name")}
+                />
+              </Grid>
+              <Grid item>
+                <input
+                  required
+                  type="email"
+                  className={classNames([
+                    classes.input,
+                    fields.email.error && classes.error
+                  ])}
+                  placeholder="SEU E-MAIL"
+                  value={fields.email.value}
+                  onChange={onChange("email")}
+                />
+              </Grid>
+              <Grid item>
+                <input
+                  className={classNames([
+                    classes.input,
+                    fields.subject.error && classes.error
+                  ])}
+                  placeholder="ASSUNTO DA MENSAGEM"
+                  value={fields.subject.value}
+                  onChange={onChange("subject")}
+                />
+              </Grid>
+              <Grid item>
+                <textarea
+                  required
+                  className={classNames([
+                    classes.input,
+                    classes.textarea,
+                    fields.message.error && classes.error
+                  ])}
+                  placeholder="SUA MENSAGEM"
+                  value={fields.message.value}
+                  onChange={onChange("message")}
+                />
+              </Grid>
+              <Grid item>
+                <button
+                  type="submit"
+                  className={classNames([classes.input, classes.button])}
+                >
+                  ENVIAR MENSAGEM
+                </button>
+              </Grid>
+            </Grid>
+          </form>
+        ) : (
+          <Typography variant="h2" color="textPrimary">
+            {send}
+          </Typography>
+        )}
       </Grid>
       <Grid item xs={3} className={classes.right}>
         <img src={screen.image} className={classes.logo} alt="" />
